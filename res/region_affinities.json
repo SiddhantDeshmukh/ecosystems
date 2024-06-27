@@ -1,0 +1,20 @@
+{
+  "region": [
+    { "name": "Beach", "affinities": ["Submerged", "Sunscorched"] },
+    { "name": "Jungle", "affinities": ["Overgrown", "Ethereal"] },
+    {
+      "name": "Swamp",
+      "affinities": ["Overgrown", "Toxic", "Submerged", "Ethereal"]
+    },
+    { "name": "Volcano", "affinities": ["Volcanic", "Toxic", "Crystalline"] },
+    { "name": "Glacier", "affinities": ["Glacial"] },
+    { "name": "Tundra", "affinities": ["Glacial", "Overgrown"] },
+    { "name": "Desert", "affinities": ["Sunscorched", "Charged"] },
+    {
+      "name": "Meadow",
+      "affinities": ["Overgrown", "Sunscorched", "Submerged"]
+    },
+    { "name": "Cliffs", "affinities": ["Charged", "Crystalline"] },
+    { "name": "Cave", "affinities": ["Crystalline", "Submerged", "Overgrown"] }
+  ]
+}

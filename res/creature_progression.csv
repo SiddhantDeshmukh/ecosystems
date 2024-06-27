@@ -1,0 +1,17 @@
+# Creature progression via evolution
+# Some creatures have split paths (natural or robotic)
+# Some creatures don't have a full 3 stages (defined by S1 or S2 or S3)
+# Creatures can have up to 2 archetypes
+# Name: Creature name
+# Animal: What animals it's based on (e.g. Housecat or Wolf/Crab)
+# A1: Required Primary Archetype (for evolved stages)
+# A2: Required Secondary Archetype (for evolved stages)
+# ProgFrom: "Name" of previous stage
+# ProgPath: natural (N) or robotic (R) or both (B)
+Name,Animal,A1,A2,Stage,ProgFrom,ProgPath
+,Crab,Arid,,0,,B
+,Crab,Glacial,Ethereal,0,,B
+,Crab,Volcanic,Crystalline,0,,B
+Fire Antelope,Ant/Deer,Volcanic,
+Elephantelope,Elephant/Deer
+Dogphin,Dog/Dolphin

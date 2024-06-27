@@ -1,0 +1,32 @@
+{
+  "affinity": [
+    "Charged",
+    "Crystalline",
+    "Ethereal",
+    "Glacial",
+    "Overgrown",
+    "Submerged",
+    "Sunscorched",
+    "Toxic",
+    "Volcanic"
+  ],
+  "family": [
+    "Canine",
+    "Cow-like",
+    "Crab-like",
+    "Crocodilian",
+    "Deer-like",
+    "Feline",
+    "Frog-like",
+    "Lizard-like",
+    "Octopus-like",
+    "Ostrich-like",
+    "Primate",
+    "Rabbit-like",
+    "Raptor-like",
+    "Rodent-like",
+    "Scorpion-like",
+    "Snake-like",
+    "Spider-like"
+  ]
+}
