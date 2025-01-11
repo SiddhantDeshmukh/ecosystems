@@ -1,32 +1,53 @@
-# DungeonNet - Making Procedural Dungeons Using Graph Theory
+# Ecosystems - Simulating Predator-Prey Relations
 
-This is my attempt to make procedural dungeons using graph theoretical
-principles. Inspired by general graph stuff and games such as Unexplored.
+I want to figure out a good way of simulating predator-prey behavior for
+an upcoming game. Simulations need to take place on grids off-screen
+as background updates, but also on-screen.
 
 ## Features To Implement
 
-### Room class with attributes like size and shape
+### Grid for Simulation (Done)
 
-- Grid of pixels/voxels
+Basic 2D grid that stores tile data. Creatures move around freely.
 
-### Passages, corridors and doors between rooms
+### Tiles
 
-- Generate where door should be and random corridor path
+Grid is made up of tiles, tiles describe different behavior
 
-### Dungeon as a graph
+- Food (Renewable food source with growing-time & quantity)
+- Water (unlimited water source), changes speed
 
-- Use spring-based physics sim to jumble and settle the rooms
+### Spawning Food
 
-### Multi-level dungeons
+Like a game of snake, food should spawn in certain areas. This is mainly
+for herbivore prey creatures, but similar creature behaviors will be
+implemented for scavengers searching for dead creatures.
 
-### Analysing connectivity, different kinds of doorways / entrances
+### Creature Needs
 
-### Scalable complexity of generation
+These go down over time, are replenished by certain actions, and control
+what state a creature is in (hunting, sleeping, eating, etc).
 
-### Populate dungeon with themed inhabitants
+- hunger
+- thirst
+- sleep
 
-### Time-dependent evolution of dungeon and its inhabitants
+### Creature Traits
 
-### Visualisation tool to map graph to tiles
+- speed
+- health
+- energy (depleted by movement, capped by hunger & thirst, restored by eating/drinking/sleeping)
+- energy recovery
 
-### Cyclic Dungeon
+### Creature AI
+
+- herding/flocking with boids
+- moving towards food
+- running away from threats
+
+### Scavengers
+
+In a real ecosystem, not all creatures are in the predator-prey hierarchy.
+Dead creatures should leave behind meat that scavengers will search for.
+
+### Config Files to load Tiles

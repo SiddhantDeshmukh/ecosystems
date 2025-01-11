@@ -9,45 +9,14 @@ import numpy as np
 import random
 from typing import Dict, List
 
+from ecosystems.generation.creature import Creature, CreatureChain
+from ecosystems.generation.probability import generate_from_list, generate_potential_pair, weighted_randint
+from ecosystems.viz.pgv_nx import visualize_taxonomy
+
+
 SEED = 420
 random.seed(SEED)
 np.random.seed(SEED)
-
-
-class Creature:
-    def __init__(self, affinities: List[str], family: str,
-                 progression_path: str, creature_name="",
-                 predators=[], prey=[]) -> None:
-        self.affinities = affinities
-        self.family = family
-        self.progression_path = progression_path
-        self.name = creature_name
-
-        self.predators = predators
-        self.prey = prey
-
-    def __str__(self) -> str:
-        # Formatted for CSV output with columns:
-        # 'CreatureName','Family','affinity1','affinity2','ProgressionPath','ProgressesFrom'
-        # The 'ProgFrom' is not included in this string; see CreatureChain's __str__ method
-        return f"{self.name},{self.family},{self.affinities[0]},{self.affinities[1]},{self.progression_path},"
-
-
-class CreatureChain:
-    def __init__(self, creatures: List[Creature]) -> None:
-        self.creatures = creatures  # currently, always 3-stage
-
-    def __str__(self) -> str:
-        # Formatted for CSV output with columns:
-        # 'CreatureName','Family1','Family2','affinity1','affinity2','ProgressionPath','EvolvesFrom'
-        # Creates 3 rows separated by \n chars
-        base_creature_str = str(self.creatures[0]) + ","  # no 'EvolvesFrom'
-        middle_creature_str = str(self.creatures[1]) +\
-            f",{self.creatures[0].name}"
-        final_creature_str = str(self.creatures[2]) +\
-            f",{self.creatures[1].name}"
-
-        return f"{base_creature_str}\n{middle_creature_str}\n{final_creature_str}\n"
 
 
 def read_traits_json(json_file: str) -> Dict:
@@ -55,21 +24,6 @@ def read_traits_json(json_file: str) -> Dict:
         data = json.load(infile)
 
     return data
-
-
-def generate_from_list(lst: List[str],
-                       chance: float) -> str:
-    # Generate a an elememt from "lst" based on "chance", else return ""
-    return random.choice(lst) if random.random() <= chance else ""
-
-
-def generate_potential_pair(lst: List[str],
-                            secondary_chance: float) -> List[str]:
-    # Pick one or two animal families from the list
-    if random.random() <= secondary_chance:
-        return random.sample(lst, 2)
-    else:
-        return [random.choice(lst), ""]
 
 
 def generate_creature(animal_affinities: List[str],
@@ -188,16 +142,6 @@ def write_random_creature_chains(traits: Dict, num_iter: int,
     return creature_chains
 
 
-def weighted_randint(a: int, b: int) -> int:
-    # Generates random number between 'a' and 'b' inclusive with weighting
-    # so higher numbers are less likely
-    choices = list(range(a, b+1))
-    probs = 1 / (2*np.array(choices))
-    # Normalize
-    probs /= np.sum(probs)
-    return np.random.choice(choices, p=probs)
-
-
 def generate_taxonomy(traits: Dict, num_base: int, max_middle_branches: int,
                       max_final_branches: int) -> nx.MultiDiGraph:
     # Create a multidigraph of taxonomy by generating a base creature &
@@ -246,16 +190,6 @@ def generate_taxonomy(traits: Dict, num_base: int, max_middle_branches: int,
                     taxonomy.add_edge(middle_creature, final_creature)
 
     return taxonomy
-
-
-def visualize_taxonomy(taxonomy: nx.MultiDiGraph, filename: str,):
-    # Write a PNG file of the taxonomy to filename
-    A = nx.nx_agraph.to_agraph(taxonomy)
-    A.graph_attr.update(overlap='prism')  # Required to enable overlap_scaling
-    A.graph_attr.update(overlap_scaling='3')  # Adjust this value as needed
-    A.layout("twopi")
-
-    A.draw(filename)
 
 
 def main():
